@@ -1,0 +1,94 @@
+.right-container {
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 55.5%;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid black;
+    .add-folder {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      cursor: pointer;
+      background-color: #e9ecf0;
+      font-size: 17px;
+    }
+    .header-title {
+      font-weight: 900;
+      font-size: 25px;
+      span {
+        font-weight: 600;
+      }
+    }
+  }
+  .folder-container {
+    .folder-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px solid black;
+      .folder-name {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+      }
+      .edit-delete {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        .new-dev-button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 6px;
+          font-size: 17px;
+          border: none;
+          background-color: #e9ecf0;
+          cursor: pointer;
+        }
+      }
+    }
+    .cards-container {
+      margin-left: 10px;
+      padding: 10px;
+      .card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        width: 40%;
+        border: 1px solid rgb(59, 58, 58);
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px gray;
+        transition-duration: 0.15s;
+        margin: 10px;
+        cursor: pointer;
+        .card-info {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 5px;
+        }
+        .file-info {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 8px;
+        }
+      }
+      .card:hover {
+        box-shadow: 2px 2px 15px gray;
+        padding: 22px;
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+.home-container {
+  font-family: Roboto;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  .left-container {
+    background-color: #344256;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 42%;
+    z-index: 100;
+    .items-container {
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      img {
+        width: 100px;
+      }
+      h2 {
+        color: rgb(207, 203, 203);
+      }
+      button {
+        cursor: pointer;
+        height: 50px;
+        width: 94%;
+        border-radius: 5px;
+        border: none;
+        transition-duration: 1s;
+        font-size: 17px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      button:hover {
+        box-shadow: 2px 2px 6px gray;
+      }
+    }
+  }
+  .right-container {
+    background-color: #e9ecf0;
+  }
+}
