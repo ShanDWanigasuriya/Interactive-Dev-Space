@@ -5,6 +5,13 @@
   grid-template-rows: 75px 1fr;
   .header-container {
     background-color: #081c38;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    img {
+      width: 70px;
+    }
   }
   .bottom-container {
     gap: 5px;

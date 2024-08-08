@@ -14,7 +14,7 @@ export const HomeScreen = () => {
     <div className="home-container">
       <div className="left-container">
         <div className="items-container">
-          {/* <img src="logo.png" /> */}
+          <img src="logo.jpg" />
           <h1>DevSpark</h1>
           <h2>Code.Compile.Debug</h2>
           <button onClick={openCreateDevSpaceModal}>
