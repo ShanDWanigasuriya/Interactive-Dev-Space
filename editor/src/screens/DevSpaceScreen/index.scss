@@ -4,18 +4,17 @@
   display: grid;
   grid-template-rows: 75px 1fr;
   .header-container {
-    background-color: #344256;
+    background-color: #081c38;
   }
   .bottom-container {
-    background-color: #e9ecf0;
+    gap: 5px;
+    padding: 5px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    .editor-container {
-      border: 2px solid brown;
-    }
+    grid-template-columns: 800px 1fr;
     .utility-container {
       display: grid;
       grid-template-rows: 1fr 1fr;
+      gap: 5px;
       .input-console-container {
         display: flex;
         flex-direction: column;
