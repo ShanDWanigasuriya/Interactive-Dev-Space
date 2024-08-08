@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { v4 } from "uuid";
 export const DevSpaceContext = createContext();
 
@@ -28,7 +28,7 @@ const initialData = [
     ],
   },
 ];
-const defaultCode = {
+export const defaultCodes = {
   Java: `public class Main {
 public static void main(String[] args) {
 greet("World");
@@ -133,7 +133,8 @@ export const DevSpaceProviders = ({ children }) => {
   const [folders, setFolders] = useState(() => {
     // Load initial data from localStorage if available
     const savedData = localStorage.getItem("devSpaceData");
-    return savedData ? JSON.parse(savedData) : initialData;
+    const data = JSON.parse(savedData);
+    return savedData ? data : initialData;
   });
 
   const createNewDevSpace = (newDevSpace) => {
@@ -147,12 +148,95 @@ export const DevSpaceProviders = ({ children }) => {
           id: v4(),
           file_title: fileName,
           language: language,
-          code_snippet: defaultCode[language],
+          code_snippet: defaultCodes[language],
         },
       ],
     });
     localStorage.setItem("devSpaceData", JSON.stringify(newFolders));
     setFolders(newFolders);
+  };
+
+  const createNewFolder = (folderName) => {
+    const newFolder = {
+      id: v4(),
+      folder_title: folderName,
+      files: [],
+    };
+
+    const allFolders = [...folders, newFolder];
+    localStorage.setItem("devSpaceData", JSON.stringify(allFolders));
+    setFolders(allFolders);
+  };
+
+  const deleteFolder = (id) => {
+    const updateFolderList = folders.filter((folderItem) => {
+      return folderItem.id !== id;
+    });
+
+    localStorage.setItem("devSpaceData", JSON.stringify(updateFolderList));
+    setFolders(updateFolderList);
+  };
+
+  const editFolderTitle = (newFolderName, id) => {
+    const updatedFoldersList = folders.map((folderItem) => {
+      if (folderItem.id === id) {
+        folderItem.folder_title = newFolderName;
+      }
+      return folderItem;
+    });
+    localStorage.setItem("devSpaceData", JSON.stringify(updatedFoldersList));
+    setFolders(updatedFoldersList);
+  };
+
+  const editFileTitle = (newFileName, folderId, fileId) => {
+    // console.log(newFileName, folderId, fileId);
+    const copiedFolders = [...folders];
+    // console.log(copiedFolders);
+    for (let i = 0; i < copiedFolders.length; i++) {
+      if (folderId === copiedFolders[i].id) {
+        const files = copiedFolders[i].files;
+        // console.log(files);
+        for (let j = 0; j < files.length; j++) {
+          if (files[j].id === fileId) {
+            files[j].file_title = newFileName;
+            break;
+          }
+        }
+        break;
+      }
+    }
+
+    localStorage.setItem("devSpaceData", JSON.stringify(copiedFolders));
+    setFolders(copiedFolders);
+  };
+
+  const deleteFile = (folderId, fileId) => {
+    const copiedFolders = [...folders];
+    for (let i = 0; i < copiedFolders.length; i++) {
+      if (folderId === copiedFolders[i].id) {
+        const files = [...copiedFolders[i].files];
+        copiedFolders[i].files = files.filter((file) => {
+          return file.id !== fileId;
+        });
+        break;
+      }
+    }
+
+    localStorage.setItem("devSpaceData", JSON.stringify(copiedFolders));
+    setFolders(copiedFolders);
+  };
+
+  const createNewFile = (folderId, file) => {
+    const copiedFolders = [...folders];
+    for (let i = 0; i < copiedFolders.length; i++) {
+      if (folderId === copiedFolders[i].id) {
+        copiedFolders[i].files.push(file);
+        break;
+      }
+    }
+
+    localStorage.setItem("devSpaceData", JSON.stringify(copiedFolders));
+    setFolders(copiedFolders);
   };
 
   useEffect(() => {
@@ -162,6 +246,12 @@ export const DevSpaceProviders = ({ children }) => {
   const devSpaceFeatures = {
     folders,
     createNewDevSpace,
+    createNewFolder,
+    deleteFolder,
+    editFolderTitle,
+    editFileTitle,
+    deleteFile,
+    createNewFile,
   };
 
   return (

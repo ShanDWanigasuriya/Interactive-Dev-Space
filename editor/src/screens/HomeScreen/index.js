@@ -2,12 +2,12 @@ import { useContext } from "react";
 import { Modal } from "../../Providers/Modals/Modal";
 import "./index.scss";
 import { RightComponent } from "./RightComponent";
-import { ModalContext } from "../../Providers/ModalProvider";
+import { modalConstants, ModalContext } from "../../Providers/ModalProvider";
 
 export const HomeScreen = () => {
   const modalFeatures = useContext(ModalContext);
   const openCreateDevSpaceModal = () => {
-    modalFeatures.openModal("CREATE_DEVSPACE");
+    modalFeatures.openModal(modalConstants.CREATE_DEVSPACE);
   };
 
   return (

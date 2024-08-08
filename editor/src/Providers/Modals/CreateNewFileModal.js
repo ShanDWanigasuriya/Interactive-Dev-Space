@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import "./CreateDevSpaceModal.scss";
 import { ModalContext } from "../ModalProvider";
-import { DevSpaceContext } from "../DevSpaceProviders";
+import { defaultCodes, DevSpaceContext } from "../DevSpaceProviders";
+import { v4 } from "uuid";
 
-export const CreateDevSpaceModal = () => {
+export const CreateNewFileModal = () => {
   const modalFeatures = useContext(ModalContext);
   const devSpaceFeatures = useContext(DevSpaceContext);
 
@@ -12,14 +13,18 @@ export const CreateDevSpaceModal = () => {
   };
   const onSubmitModal = (e) => {
     e.preventDefault();
-    // console.log(e.target?.folderName?.value);
-    const folderName = e.target.folderName.value;
+
     const fileName = e.target.fileName.value;
     const language = e.target.language.value;
-    // console.log(folderName, fileName, language);
 
-    devSpaceFeatures.createNewDevSpace({ folderName, fileName, language });
-    // console.log(folderName, fileName, language);
+    const file = {
+      id: v4(),
+      file_title: fileName,
+      language,
+      code_snippet: defaultCodes[language],
+    };
+
+    devSpaceFeatures.createNewFile(modalFeatures.modalPayload, file);
     closeModal();
   };
 
@@ -29,11 +34,7 @@ export const CreateDevSpaceModal = () => {
         <span className="material-icons close" onClick={closeModal}>
           close
         </span>
-        <button className="modal-heading">Create New Dev_Space</button>
-        <div className="item">
-          <span>Enter Folder Name</span>
-          <input name="folderName" required />
-        </div>
+        <button className="modal-heading">Create New File</button>
         <div className="item">
           <span>Enter File Name</span>
           <input name="fileName" required />
@@ -47,7 +48,7 @@ export const CreateDevSpaceModal = () => {
             <option value="C#">C#</option>
             <option value="Python">Python</option>
           </select>
-          <button type="submit">Create Dev_Space</button>
+          <button type="submit">Create File</button>
         </div>
       </form>
     </div>

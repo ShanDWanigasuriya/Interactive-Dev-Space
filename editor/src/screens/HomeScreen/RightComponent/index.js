@@ -1,9 +1,26 @@
 import { useContext } from "react";
 import "./index.scss";
 import { DevSpaceContext } from "../../../Providers/DevSpaceProviders";
+import { modalConstants, ModalContext } from "../../../Providers/ModalProvider";
 
-const Folder = ({ folderTitle, cards }) => {
+const Folder = ({ folderTitle, cards, folderId }) => {
   // console.log("Folder component received cards:", cards); // Log cards
+  const { deleteFolder, deleteFile } = useContext(DevSpaceContext);
+  const modalFeatures = useContext(ModalContext);
+
+  const onDeleteFolder = () => {
+    deleteFolder(folderId);
+  };
+  const onEditFolderTitle = () => {
+    modalFeatures.setModalPayload(folderId);
+    modalFeatures.openModal(modalConstants.UPDATE_FOLDER_TITLE);
+  };
+
+  const openCreateNewFileModal = () => {
+    modalFeatures.setModalPayload(folderId);
+    modalFeatures.openModal(modalConstants.CREATE_FILE);
+  };
+
   return (
     <div className="folder-container">
       <div className="folder-header">
@@ -14,12 +31,16 @@ const Folder = ({ folderTitle, cards }) => {
           <span>{folderTitle}</span>
         </div>
         <div className="edit-delete">
-          <span className="material-icons">delete</span>
-          <span className="material-icons">edit</span>
+          <span className="material-icons" onClick={onDeleteFolder}>
+            delete
+          </span>
+          <span className="material-icons" onClick={onEditFolderTitle}>
+            edit
+          </span>
           <div>
-            <button className="new-dev-button">
+            <button className="new-dev-button" onClick={openCreateNewFileModal}>
               <span className="material-icons">add</span>
-              <span>New Dev_Space</span>
+              <span>New File</span>
             </button>
           </div>
         </div>
@@ -27,6 +48,18 @@ const Folder = ({ folderTitle, cards }) => {
       <div className="cards-container">
         {Array.isArray(cards) && cards.length > 0 ? (
           cards?.map((file, index) => {
+            const onEditFileTitle = () => {
+              modalFeatures.setModalPayload({
+                fileId: file.id,
+                folderId: folderId,
+              });
+              modalFeatures.openModal(modalConstants.UPDATE_FILE_TITLE);
+            };
+
+            const onDeleteFile = () => {
+              deleteFile(folderId, file.id);
+            };
+
             let extension = "";
             if (file?.language === "Java") {
               extension = "java";
@@ -52,8 +85,12 @@ const Folder = ({ folderTitle, cards }) => {
                   </div>
                 </div>
                 <div className="file-info">
-                  <span className="material-icons">delete</span>
-                  <span className="material-icons">edit</span>
+                  <span className="material-icons" onClick={onDeleteFile}>
+                    delete
+                  </span>
+                  <span className="material-icons" onClick={onEditFileTitle}>
+                    edit
+                  </span>
                 </div>
               </div>
             );
@@ -68,6 +105,10 @@ const Folder = ({ folderTitle, cards }) => {
 
 export const RightComponent = () => {
   const { folders } = useContext(DevSpaceContext);
+  const modalFeatures = useContext(ModalContext);
+  const openCreteNewFolderModal = () => {
+    modalFeatures.openModal(modalConstants.CREATE_FOLDER);
+  };
 
   return (
     <div className="right-container">
@@ -75,7 +116,7 @@ export const RightComponent = () => {
         <div className="header-title">
           <span>My</span> Dev_Space
         </div>
-        <button className="add-folder">
+        <button className="add-folder" onClick={openCreteNewFolderModal}>
           <span className="material-icons">add</span>
           <span>New Folder</span>
         </button>
@@ -87,6 +128,7 @@ export const RightComponent = () => {
               folderTitle={folder?.folder_title}
               cards={folder?.files}
               key={index}
+              folderId={folder.id}
             />
           );
         })

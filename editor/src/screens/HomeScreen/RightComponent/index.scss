@@ -1,10 +1,12 @@
 .right-container {
   padding: 20px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 55.5%;
+  // position: absolute;
+  // top: 0;
+  // right: 0;
+  // bottom: 0;
+  // width: 55.5%;
+  height: 100vh;
+  overflow-y: scroll;
   .header {
     display: flex;
     justify-content: space-between;
@@ -86,8 +88,8 @@
         }
       }
       .card:hover {
-        box-shadow: 2px 2px 15px gray;
-        padding: 22px;
+        box-shadow: 2px 2px 10px gray;
+        padding: 20px;
       }
     }
   }
