@@ -1,0 +1,73 @@
+.devspace-container {
+  font-family: Roboto;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 75px 1fr;
+  .header-container {
+    background-color: #344256;
+  }
+  .bottom-container {
+    background-color: #e9ecf0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    .editor-container {
+      border: 2px solid brown;
+    }
+    .utility-container {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      .input-console-container {
+        display: flex;
+        flex-direction: column;
+        .input-console-header {
+          background-color: #2a3f6c;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px;
+          .utility-name {
+            background-color: #2a3f6c;
+            border: none;
+            font-size: 14px;
+            color: white;
+            padding: 5px;
+            pointer-events: none;
+          }
+          .icon-container {
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            gap: 5px;
+
+            .material-icons {
+              color: #e9ecf0;
+            }
+            button {
+              background-color: #2a3f6c;
+              border: none;
+              font-size: 14px;
+              color: white;
+              padding: 5px;
+              cursor: pointer;
+            }
+          }
+        }
+        textarea {
+          background-color: #e9ecf0;
+          flex-grow: 1;
+          font-size: 17px;
+          border: none;
+          resize: none;
+          padding: 8px;
+        }
+        textarea:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}

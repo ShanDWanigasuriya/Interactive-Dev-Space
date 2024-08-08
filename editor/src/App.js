@@ -10,7 +10,10 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomeScreen />} />
-            <Route path="/devspace" element={<DevSpaceScreen />} />
+            <Route
+              path="/devSpace/:folderId/:fileId"
+              element={<DevSpaceScreen />}
+            />
           </Routes>
         </BrowserRouter>
       </ModalProvider>

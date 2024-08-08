@@ -2,11 +2,13 @@ import { useContext } from "react";
 import "./index.scss";
 import { DevSpaceContext } from "../../../Providers/DevSpaceProviders";
 import { modalConstants, ModalContext } from "../../../Providers/ModalProvider";
+import { useNavigate } from "react-router-dom";
 
 const Folder = ({ folderTitle, cards, folderId }) => {
   // console.log("Folder component received cards:", cards); // Log cards
   const { deleteFolder, deleteFile } = useContext(DevSpaceContext);
   const modalFeatures = useContext(ModalContext);
+  const navigate = useNavigate();
 
   const onDeleteFolder = () => {
     deleteFolder(folderId);
@@ -75,9 +77,13 @@ const Folder = ({ folderTitle, cards, folderId }) => {
               extension = "cs";
             }
 
+            const naviageToDevSpaceScreen = () => {
+              navigate(`/devSpace/${folderId}/${file.id}`);
+            };
+
             return (
               <div className="card" key={index}>
-                <div className="card-info">
+                <div className="card-info" onClick={naviageToDevSpaceScreen}>
                   <span className="material-icons">code</span>
                   <div>
                     <span>{file?.file_title}</span>
