@@ -12,7 +12,8 @@ async function getSubmission(tokenId, callback) {
   const options = {
     method: "GET",
     headers: {
-      "x-rapidapi-key": "16d7dc3b00mshfbe4052581b46d4p1d83c4jsn479b1a060482",
+      "Content-Type": "application/json",
+      "x-rapidapi-key": "7204430a99msh429d38d58e7c526p15c2bcjsn930ca895f5ff",
       "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
     },
   };
@@ -37,9 +38,10 @@ export async function makeSubmission({ code, language, callback, stdin }) {
   const options = {
     method: "POST",
     headers: {
-      "x-rapidapi-key": "16d7dc3b00mshfbe4052581b46d4p1d83c4jsn479b1a060482",
-      "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
       "Content-Type": "application/json",
+      "Content-Type": "application/json",
+      "x-rapidapi-key": "7204430a99msh429d38d58e7c526p15c2bcjsn930ca895f5ff",
+      "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
     },
     body: JSON.stringify({
       language_id: languageCodeMap[language],

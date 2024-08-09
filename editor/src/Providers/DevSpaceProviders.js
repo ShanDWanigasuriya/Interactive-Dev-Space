@@ -30,102 +30,56 @@ const initialData = [
 ];
 export const defaultCodes = {
   java: `public class Main {
-public static void main(String[] args) {
-greet("World");
-        
-int sum = add(5, 7);
-System.out.println("Sum: " + sum);
-}
-    
-public static void greet(String name) {
- System.out.println("Hello, " + name + "!");
-}
-    
-public static int add(int a, int b) {
-return a + b;
-   }
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
 }
 `,
-  javascript: `function greet(name) {
-    console.log("Hello, " + name + "!");
+  javascript: `// Define a function to print Hello, World!
+function printMessage() {
+    const message = "Hello, World!";
+    console.log(message);
 }
 
-function add(a, b) {
-    return a + b;
-}
-
-greet("World");
-
-let sum = add(5, 7);
-console.log("Sum: " + sum);
+// Call the function
+printMessage();
 `,
   cpp: `#include <iostream>
-
-void greet(const std::string &name) {
-    std::cout << "Hello, " << name << "!" << std::endl;
-}
-
-int add(int a, int b) {
-    return a + b;
-}
+using namespace std;
 
 int main() {
-    greet("World");
-
-    int sum = add(5, 7);
-    std::cout << "Sum: " << sum << std::endl;
-
+    int a, b;
+    cin>>a>>b;
+    int sum = 0;
+    for(int i = a; i <= b; i++){
+        sum += i;
+    }
+    cout << "Sum between a and b is "<< sum;
     return 0;
 }
 `,
   c: `#include <stdio.h>
 
-void greet(const char *name) {
-    printf("Hello, %s!\n", name);
-}
-
-int add(int a, int b) {
-    return a + b;
-}
-
 int main() {
-    greet("World");
-
-    int sum = add(5, 7);
-    printf("Sum: %d\n", sum);
-
+    printf("Hello, World!");
     return 0;
 }
 `,
   csharp: `using System;
 
-class Program {
+class HelloWorld {
     static void Main() {
-        Greet("World");
-
-        int sum = Add(5, 7);
-        Console.WriteLine("Sum: " + sum);
-    }
-
-    static void Greet(string name) {
-        Console.WriteLine("Hello, " + name + "!");
-    }
-
-    static int Add(int a, int b) {
-        return a + b;
+        Console.WriteLine("Hello, World!");
     }
 }
 `,
-  python: `def greet(name):
-    print(f"Hello, {name}!")
+  python: `# Define a function to print Hello, World!
+def print_message():
+    message = "Hello, World!"
+    print(message)
 
-def add(a, b):
-    return a + b
-
-if __name__ == "__main__":
-    greet("World")
-    sum = add(5, 7)
-    print("Sum:", sum)
+# Call the function
+print_message()
 `,
 };
 

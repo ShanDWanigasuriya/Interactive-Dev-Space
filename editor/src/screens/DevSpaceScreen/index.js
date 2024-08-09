@@ -80,14 +80,16 @@ export const DevSpaceScreen = () => {
         setOutput(atob(data.stdout));
       } else {
         setShowLoader(false);
+
         setOutput(atob(data.stderr));
+        // console.log(data.status.description);
       }
     }
   };
 
   const runCode = useCallback(
     ({ code, language }) => {
-      makeSubmission({ code, language, callback, input });
+      makeSubmission({ code, language, callback, stdin: input });
     },
     [input]
   );

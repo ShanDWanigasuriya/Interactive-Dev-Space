@@ -55,8 +55,10 @@ export const EditorContainer = ({ fileId, folderId, runCode }) => {
 
   const onChangeLanguage = (e) => {
     updateLanguage(fileId, folderId, e.target.value);
-    setCode(getDefaultCode(fileId, folderId));
-    setLanguage(e.target.value.toLowerCase());
+    const newCode = getDefaultCode(fileId, folderId);
+    setCode(newCode);
+    codeRef.current = newCode;
+    setLanguage(e.target.value);
   };
 
   const onChangeTheme = (e) => {
@@ -151,7 +153,7 @@ export const EditorContainer = ({ fileId, folderId, runCode }) => {
       <div className="editor-header">
         <div className="left-header-container">
           <button className="file-name-container">
-            {/* {file_title}.{fileExtensionsMapping[language]} */}
+            {"Code"}.{fileExtensionsMapping[language]}
           </button>
         </div>
         <div className="right-header-container">
