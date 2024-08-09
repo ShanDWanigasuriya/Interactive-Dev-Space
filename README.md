@@ -23,4 +23,4 @@
 - **React:** Frontend framework for building the user interface.
 - **Monaco Editor:** A powerful code editor that enhances the coding experience.
 - **Judge0:** A versatile code execution engine that supports multiple programming languages.
-- **Sass:** For deploying and managing the application in the cloud.
+- **Sass:** Used for applying consistent and responsive styles throughout the application.
