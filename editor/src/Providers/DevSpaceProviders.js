@@ -10,7 +10,7 @@ const initialData = [
       {
         id: v4(),
         file_title: "JsFundementals",
-        language: "JavaScript",
+        language: "javaScript",
         code_snippet: `
             function greet(name) {
                 console.log("Hello, " + name + "!");
@@ -29,7 +29,7 @@ const initialData = [
   },
 ];
 export const defaultCodes = {
-  Java: `public class Main {
+  java: `public class Main {
 public static void main(String[] args) {
 greet("World");
         
@@ -46,7 +46,7 @@ return a + b;
    }
 }
 `,
-  JavaScript: `function greet(name) {
+  javascript: `function greet(name) {
     console.log("Hello, " + name + "!");
 }
 
@@ -59,7 +59,7 @@ greet("World");
 let sum = add(5, 7);
 console.log("Sum: " + sum);
 `,
-  "C++": `#include <iostream>
+  cpp: `#include <iostream>
 
 void greet(const std::string &name) {
     std::cout << "Hello, " << name << "!" << std::endl;
@@ -78,7 +78,7 @@ int main() {
     return 0;
 }
 `,
-  C: `#include <stdio.h>
+  c: `#include <stdio.h>
 
 void greet(const char *name) {
     printf("Hello, %s!\n", name);
@@ -97,7 +97,7 @@ int main() {
     return 0;
 }
 `,
-  "C#": `using System;
+  csharp: `using System;
 
 class Program {
     static void Main() {
@@ -116,7 +116,7 @@ class Program {
     }
 }
 `,
-  Python: `def greet(name):
+  python: `def greet(name):
     print(f"Hello, {name}!")
 
 def add(a, b):
@@ -239,6 +239,65 @@ export const DevSpaceProviders = ({ children }) => {
     setFolders(copiedFolders);
   };
 
+  const getDefaultCode = (fileId, folderId) => {
+    for (let i = 0; i < folders.length; i++) {
+      if (folders[i].id === folderId) {
+        for (let j = 0; j < folders[i].files.length; j++) {
+          const currentFile = folders[i].files[j];
+          if (fileId === currentFile.id) {
+            return currentFile.code_snippet;
+          }
+        }
+      }
+    }
+  };
+
+  const getLanguage = (fileId, folderId) => {
+    for (let i = 0; i < folders.length; i++) {
+      if (folders[i].id === folderId) {
+        for (let j = 0; j < folders[i].files.length; j++) {
+          const currentFile = folders[i].files[j];
+          if (fileId === currentFile.id) {
+            return currentFile.language;
+          }
+        }
+      }
+    }
+  };
+
+  const updateLanguage = (fileId, folderId, language) => {
+    const newFolders = [...folders];
+    for (let i = 0; i < newFolders.length; i++) {
+      if (newFolders[i].id === folderId) {
+        for (let j = 0; j < newFolders[i].files.length; j++) {
+          const currentFile = newFolders[i].files[j];
+          if (fileId === currentFile.id) {
+            newFolders[i].files[j].code_snippet = defaultCodes[language];
+            newFolders[i].files[j].language = language;
+          }
+        }
+      }
+    }
+    localStorage.setItem("devSpaceData", JSON.stringify(newFolders));
+    setFolders(newFolders);
+  };
+
+  const saveCode = (fileId, folderId, newCode) => {
+    const newFolders = [...folders];
+    for (let i = 0; i < newFolders.length; i++) {
+      if (newFolders[i].id === folderId) {
+        for (let j = 0; j < newFolders[i].files.length; j++) {
+          const currentFile = newFolders[i].files[j];
+          if (fileId === currentFile.id) {
+            newFolders[i].files[j].code_snippet = newCode;
+          }
+        }
+      }
+    }
+    localStorage.setItem("devSpaceData", JSON.stringify(newFolders));
+    setFolders(newFolders);
+  };
+
   useEffect(() => {
     localStorage.setItem("devSpaceData", JSON.stringify(folders));
   }, []);
@@ -252,6 +311,10 @@ export const DevSpaceProviders = ({ children }) => {
     editFileTitle,
     deleteFile,
     createNewFile,
+    getDefaultCode,
+    getLanguage,
+    updateLanguage,
+    saveCode,
   };
 
   return (

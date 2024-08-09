@@ -63,17 +63,17 @@ const Folder = ({ folderTitle, cards, folderId }) => {
             };
 
             let extension = "";
-            if (file?.language === "Java") {
+            if (file?.language === "java") {
               extension = "java";
-            } else if (file?.language === "JavaScript") {
+            } else if (file?.language === "javascript") {
               extension = "js";
-            } else if (file?.language === "Python") {
+            } else if (file?.language === "python") {
               extension = "py";
-            } else if (file?.language === "C++") {
+            } else if (file?.language === "cpp") {
               extension = "cpp";
-            } else if (file?.language === "C") {
+            } else if (file?.language === "c") {
               extension = "c";
-            } else if (file?.language === "C#") {
+            } else if (file?.language === "csharp") {
               extension = "cs";
             }
 

@@ -41,12 +41,12 @@ export const CreateNewFileModal = () => {
         </div>
         <div className="item">
           <select name="language" required>
-            <option value="Java">Java</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="C++">C++</option>
-            <option value="C">C</option>
-            <option value="C#">C#</option>
-            <option value="Python">Python</option>
+            <option value="java">Java</option>
+            <option value="javascript">JavaScript</option>
+            <option value="cpp">C++</option>
+            <option value="c">C</option>
+            <option value="csharp">C#</option>
+            <option value="python">Python</option>
           </select>
           <button type="submit">Create File</button>
         </div>

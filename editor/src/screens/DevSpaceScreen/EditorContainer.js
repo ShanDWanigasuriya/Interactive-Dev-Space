@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import "./EditorContainer.scss";
 import Editor, { loader } from "@monaco-editor/react";
 import nightOwl from "monaco-themes/themes/Night Owl.json";
@@ -10,6 +10,7 @@ import nord from "monaco-themes/themes/Nord.json";
 import cobalt2 from "monaco-themes/themes/Cobalt2.json";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { DevSpaceContext } from "../../Providers/DevSpaceProviders";
 
 const editorOptions = {
   wordWrap: "on",
@@ -25,11 +26,20 @@ const fileExtensionsMapping = {
   csharp: "cs",
 };
 
-export const EditorContainer = () => {
-  const [language, setLanguage] = useState("java");
+export const EditorContainer = ({ fileId, folderId, runCode }) => {
+  const { getDefaultCode, getLanguage, updateLanguage, saveCode } =
+    useContext(DevSpaceContext);
   const [theme, setTheme] = useState("night-owl");
-  const [code, setCode] = useState("");
-  const codeRef = useRef();
+
+  const [language, setLanguage] = useState(() => {
+    return getLanguage(fileId, folderId);
+  });
+
+  const [code, setCode] = useState(() => {
+    return getDefaultCode(fileId, folderId);
+  });
+
+  const codeRef = useRef(code);
 
   useEffect(() => {
     loader.init().then((monaco) => {
@@ -44,6 +54,8 @@ export const EditorContainer = () => {
   }, []);
 
   const onChangeLanguage = (e) => {
+    updateLanguage(fileId, folderId, e.target.value);
+    setCode(getDefaultCode(fileId, folderId));
     setLanguage(e.target.value.toLowerCase());
   };
 
@@ -57,15 +69,6 @@ export const EditorContainer = () => {
 
   const showTryAgainToast = () => {
     toast.error("Try again with a program file", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      pauseOnHover: true,
-    });
-  };
-
-  const showEmptyCodeToast = () => {
-    toast.error("There is nothing to export", {
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -89,6 +92,15 @@ export const EditorContainer = () => {
     }
   };
 
+  const showEmptyCodeToast = () => {
+    toast.error("There is nothing to export", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      pauseOnHover: true,
+    });
+  };
+
   const exportCode = () => {
     const codeValue = codeRef.current?.trim();
     if (!codeValue) {
@@ -109,12 +121,37 @@ export const EditorContainer = () => {
     }
   };
 
+  const showCodeSaveToast = () => {
+    toast.success("Code Saved Succesfully", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      pauseOnHover: true,
+    });
+  };
+
+  const onSaveCode = () => {
+    saveCode(fileId, folderId, codeRef.current);
+
+    //without timeout it gives error
+    setTimeout(() => {
+      showCodeSaveToast();
+    }, 0); // Delay can be adjusted as needed
+  };
+
+  const onRunCode = () => {
+    runCode({
+      code: codeRef.current,
+      language,
+    });
+  };
+
   return (
     <div className="root-editor-container">
       <div className="editor-header">
         <div className="left-header-container">
           <button className="file-name-container">
-            {"FileName.Extension"}
+            {/* {file_title}.{fileExtensionsMapping[language]} */}
           </button>
         </div>
         <div className="right-header-container">
@@ -123,12 +160,12 @@ export const EditorContainer = () => {
             onChange={onChangeLanguage}
             value={language}
           >
-            <option value="java">Java</option>
-            <option value="javascript">JavaScript</option>
-            <option value="cpp">C++</option>
-            <option value="c">C</option>
-            <option value="csharp">C#</option>
-            <option value="python">Python</option>
+            <option value="java">Java (JDK 17.0.6)</option>
+            <option value="javascript">JavaScript (Node.js 18.15.0)</option>
+            <option value="cpp">C++ (GCC 9.2.0)</option>
+            <option value="c">C (GCC 9.2.0)</option>
+            <option value="csharp">C# (Mono 6.6.0.161)</option>
+            <option value="python">Python (3.11.2)</option>
           </select>
           <select className="theme-set" onChange={onChangeTheme} value={theme}>
             <option value="night-owl">Night Owl</option>
@@ -179,12 +216,12 @@ export const EditorContainer = () => {
           <span>Export Code</span>
         </button>
 
-        <button className="footer-btn-run">
+        <button className="footer-btn-run" onClick={onRunCode}>
           <span className="material-icons">play_arrow</span>
           <span>Run Code</span>
         </button>
 
-        <button className="footer-btn-save">
+        <button className="footer-btn-save" onClick={onSaveCode}>
           <span className="material-icons">save</span>
           <span>Save Code</span>
         </button>

@@ -1,17 +1,28 @@
 import { useParams } from "react-router-dom";
 import "./index.scss";
 import { EditorContainer } from "./EditorContainer";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import { makeSubmission } from "./service";
 
 export const DevSpaceScreen = () => {
   const params = useParams();
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
+  const [showLoader, setShowLoader] = useState(false);
   const { folderId, fileId } = params;
 
   const showTryAgainToast = () => {
     toast.error("Invalid file type", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      pauseOnHover: true,
+    });
+  };
+
+  const showEmptyOutputToast = () => {
+    toast.error("Output is Empty", {
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -34,7 +45,18 @@ export const DevSpaceScreen = () => {
   };
 
   const exportOutput = (e) => {
-    //TODO
+    const outPutValue = output.trim();
+    if (!outPutValue) {
+      showEmptyOutputToast();
+      return;
+    }
+
+    const blob = new Blob([outPutValue], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `output.txt`;
+    link.click();
   };
 
   const handleInputChange = (e) => {
@@ -45,6 +67,31 @@ export const DevSpaceScreen = () => {
     setOutput(e.target.value);
   };
 
+  const callback = ({ apiStatus, data, message }) => {
+    if (apiStatus === "loading") {
+      setShowLoader(true);
+    } else if (apiStatus === "error") {
+      setShowLoader(false);
+      setOutput("Something Went Wrong");
+    } else {
+      setShowLoader(false);
+      //apiStatus === success
+      if (data.status.id === 3) {
+        setOutput(atob(data.stdout));
+      } else {
+        setShowLoader(false);
+        setOutput(atob(data.stderr));
+      }
+    }
+  };
+
+  const runCode = useCallback(
+    ({ code, language }) => {
+      makeSubmission({ code, language, callback, input });
+    },
+    [input]
+  );
+
   return (
     <div className="devspace-container">
       <div className="header-container">
@@ -52,7 +99,12 @@ export const DevSpaceScreen = () => {
       </div>
       <div className="bottom-container">
         <div className="editor-container">
-          <EditorContainer />
+          <EditorContainer
+            // file_title={file_title}
+            fileId={fileId}
+            folderId={folderId}
+            runCode={runCode}
+          />
         </div>
         <div className="utility-container">
           <div className="input-console-container">
@@ -91,6 +143,11 @@ export const DevSpaceScreen = () => {
           </div>
         </div>
       </div>
+      {showLoader && (
+        <div className="fullpage-loader">
+          <div className="loader"></div>
+        </div>
+      )}
       <ToastContainer />
     </div>
   );
