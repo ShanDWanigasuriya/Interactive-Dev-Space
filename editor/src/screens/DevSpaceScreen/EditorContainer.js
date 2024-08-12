@@ -159,7 +159,7 @@ export const EditorContainer = ({ fileId, folderId, runCode }) => {
       <div className="editor-header">
         <div className="left-header-container">
           <button className="file-name-container">
-            {"Code"}.{fileExtensionsMapping[language]}
+            {"code"}.{fileExtensionsMapping[language]}
           </button>
         </div>
         <div className="right-header-container">
