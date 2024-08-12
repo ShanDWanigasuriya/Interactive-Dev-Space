@@ -4,6 +4,7 @@ import { EditorContainer } from "./EditorContainer";
 import { useCallback, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { makeSubmission } from "./service";
+import { useNavigate } from "react-router-dom";
 
 export const DevSpaceScreen = () => {
   const params = useParams();
@@ -11,6 +12,7 @@ export const DevSpaceScreen = () => {
   const [output, setOutput] = useState("");
   const [showLoader, setShowLoader] = useState(false);
   const { folderId, fileId } = params;
+  const navigate = useNavigate();
 
   const showTryAgainToast = () => {
     toast.error("Invalid file type", {
@@ -67,6 +69,27 @@ export const DevSpaceScreen = () => {
     setOutput(e.target.value);
   };
 
+  function cleanAndFormatCompileOutput(encodedStr) {
+    // Step 1: Decode the Base64 string
+    let decodedStr = atob(encodedStr);
+
+    // Step 2: Convert the non-ASCII characters to their proper equivalents
+    let cleanStr = decodedStr
+      .replace(/â/g, "'") // Replace open single quotes
+      .replace(/â/g, "'") // Replace close single quotes
+      .replace(/â/g, '"') // Replace open double quotes
+      .replace(/â/g, '"') // Replace close double quotes
+      .replace(/â¢/g, "•") // Replace bullet points
+      .replace(/â/g, "–") // Replace en dash
+      .replace(/â/g, "—") // Replace em dash
+      .replace(/â¦/g, "…") // Replace ellipsis
+      .replace(/â¢/g, "•") // Replace bullet points
+      .replace(/~/g, "^"); // Replace all instances of ~ with ^
+
+    // Return the cleaned and formatted string
+    return cleanStr;
+  }
+
   const callback = ({ apiStatus, data, message }) => {
     if (apiStatus === "loading") {
       setShowLoader(true);
@@ -80,8 +103,7 @@ export const DevSpaceScreen = () => {
         setOutput(atob(data.stdout));
       } else {
         setShowLoader(false);
-
-        setOutput(atob(data.stderr));
+        setOutput(cleanAndFormatCompileOutput(data.compile_output));
         // console.log(data.status.description);
       }
     }
@@ -94,10 +116,14 @@ export const DevSpaceScreen = () => {
     [input]
   );
 
+  const naviageToHomeScreen = () => {
+    navigate(`/`);
+  };
+
   return (
     <div className="devspace-container">
       <div className="header-container">
-        <img src="/logo.jpg" alt="Logo" />
+        <img src="/logo.jpg" alt="Logo" onClick={naviageToHomeScreen} />
       </div>
       <div className="bottom-container">
         <div className="editor-container">

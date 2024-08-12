@@ -39,6 +39,8 @@ export const EditorContainer = ({ fileId, folderId, runCode }) => {
     return getDefaultCode(fileId, folderId);
   });
 
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
   const codeRef = useRef(code);
 
   useEffect(() => {
@@ -148,6 +150,10 @@ export const EditorContainer = ({ fileId, folderId, runCode }) => {
     });
   };
 
+  const toggleFullscreen = () => {
+    setIsFullscreen(!isFullscreen);
+  };
+
   return (
     <div className="root-editor-container">
       <div className="editor-header">
@@ -196,9 +202,11 @@ export const EditorContainer = ({ fileId, folderId, runCode }) => {
         />
       </div>
       <div className="editor-footer">
-        <button className="footer-btn-fullScreen">
-          <span className="material-icons">fullscreen</span>
-          <span>Full Screen</span>
+        <button className="footer-btn-fullScreen" onClick={toggleFullscreen}>
+          <span className="material-icons">
+            {isFullscreen ? "fullscreen_exit" : "fullscreen"}
+          </span>
+          <span>{isFullscreen ? "Minimize" : "Full Screen"}</span>
         </button>
         <button className="footer-btn-import">
           <label htmlFor="input" className="icon-container">
