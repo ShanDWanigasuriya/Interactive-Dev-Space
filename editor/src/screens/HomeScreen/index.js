@@ -15,8 +15,9 @@ export const HomeScreen = () => {
       <div className="left-container">
         <div className="items-container">
           <img src="logo.jpg" />
-          <h1>DevSpark</h1>
-          <h2>Code.Compile.Debug</h2>
+          <h1>DEV_SPARK</h1>
+          <h2>YOUR INTERACTIVE DEV_SPACE</h2>
+          <h2>CODE --&gt; COMPILE --&gt; RUN</h2>
           <button onClick={openCreateDevSpaceModal}>
             <span className="material-icons">add</span>
             <span>Create a Dev_Space</span>

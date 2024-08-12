@@ -31,14 +31,20 @@ export const UpdateFolderTitleModal = () => {
         <span className="material-icons close" onClick={closeModal}>
           close
         </span>
-        <button className="modal-heading">Update Folder Name</button>
-        <div className="item">
-          <span>Enter Folder Name</span>
-          <input name="folderName" required placeholder="Enter Folder Name" />
-        </div>
+        {/* <button className="modal-heading">Update Folder Name</button> */}
+        <div className="folder-creation">
+          <div className="item">
+            {/* <span>Enter Folder Name</span> */}
+            <input
+              name="folderName"
+              required
+              placeholder="Enter New Folder Name"
+            />
+          </div>
 
-        <div className="item" style={styles.updateFolderBtn}>
-          <button type="submit">Update Folder</button>
+          <div className="item" style={styles.updateFolderBtn}>
+            <button type="submit">Update Folder</button>
+          </div>
         </div>
       </form>
     </div>

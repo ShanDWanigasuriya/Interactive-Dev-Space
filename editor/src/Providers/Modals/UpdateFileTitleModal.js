@@ -35,14 +35,16 @@ export const UpdateFileTitleModal = () => {
         <span className="material-icons close" onClick={closeModal}>
           close
         </span>
-        <button className="modal-heading">Update File Name</button>
-        <div className="item">
-          <span>Enter File Name</span>
-          <input name="fileName" required placeholder="Enter File Name" />
-        </div>
+        {/* <button className="modal-heading">Update File Name</button> */}
+        <div className="folder-creation">
+          <div className="item">
+            {/* <span>Enter File Name</span> */}
+            <input name="fileName" required placeholder="Enter New File Name" />
+          </div>
 
-        <div className="item" style={styles.updateFileBtn}>
-          <button type="submit">Update File</button>
+          <div className="item" style={styles.updateFileBtn}>
+            <button type="submit">Update File</button>
+          </div>
         </div>
       </form>
     </div>

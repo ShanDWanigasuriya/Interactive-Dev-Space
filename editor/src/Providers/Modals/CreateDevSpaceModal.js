@@ -31,12 +31,22 @@ export const CreateDevSpaceModal = () => {
         </span>
         <button className="modal-heading">Create New Dev_Space</button>
         <div className="item">
-          <span>Enter Folder Name</span>
-          <input name="folderName" required />
+          {/* <span>Enter Folder Name</span> */}
+          <input
+            name="folderName"
+            required
+            placeholder="Enter Folder Name"
+            style={{ width: 305 }}
+          />
         </div>
         <div className="item">
-          <span>Enter File Name</span>
-          <input name="fileName" required />
+          {/* <span>Enter File Name</span> */}
+          <input
+            name="fileName"
+            required
+            placeholder="Enter File Name"
+            style={{ width: 305 }}
+          />
         </div>
         <div className="item">
           <select name="language" required>

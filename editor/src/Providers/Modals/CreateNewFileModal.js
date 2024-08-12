@@ -34,10 +34,15 @@ export const CreateNewFileModal = () => {
         <span className="material-icons close" onClick={closeModal}>
           close
         </span>
-        <button className="modal-heading">Create New File</button>
+        {/* <button className="modal-heading">Create New File</button> */}
         <div className="item">
-          <span>Enter File Name</span>
-          <input name="fileName" required />
+          {/* <span>Enter File Name</span> */}
+          <input
+            name="fileName"
+            required
+            placeholder="Enter File Name"
+            style={{ width: 300 }}
+          />
         </div>
         <div className="item">
           <select name="language" required>
@@ -48,7 +53,9 @@ export const CreateNewFileModal = () => {
             <option value="csharp">C#</option>
             <option value="python">Python</option>
           </select>
-          <button type="submit">Create File</button>
+          <button type="submit" style={{ width: 120 }}>
+            Create File
+          </button>
         </div>
       </form>
     </div>

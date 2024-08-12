@@ -102,7 +102,7 @@ const Folder = ({ folderTitle, cards, folderId }) => {
             );
           })
         ) : (
-          <p>No files available</p>
+          <p className="noFolder">No files available</p>
         )}
       </div>
     </div>
@@ -120,7 +120,7 @@ export const RightComponent = () => {
     <div className="right-container">
       <div className="header">
         <div className="header-title">
-          <span>My</span> Dev_Space
+          <span>My</span> DEV_SPACE
         </div>
         <button className="add-folder" onClick={openCreteNewFolderModal}>
           <span className="material-icons">add</span>
@@ -139,7 +139,7 @@ export const RightComponent = () => {
           );
         })
       ) : (
-        <p>No folders available</p>
+        <p className="noFolder">No folders available</p>
       )}
     </div>
   );

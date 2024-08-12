@@ -10,10 +10,10 @@
   justify-content: center;
   align-items: center;
   .modal-body {
-    background-color: #f1f1f1;
+    background-color: #d9dcdf;
     padding: 35px;
     box-shadow: 4px 4px 10px gray;
-    border-radius: 3px;
+    border-radius: 2px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -35,7 +35,7 @@
       input {
         border: none;
         background-color: #f1f1f1;
-        padding: 8px;
+        padding: 10px;
         border: 1px solid gray;
       }
       input:focus {
@@ -43,7 +43,7 @@
       }
       button,
       select {
-        padding: 12px;
+        padding: 9.9px;
         background-color: #4c5871;
         color: white;
         border: none;
@@ -62,6 +62,10 @@
       top: 8px;
       right: 8px;
       cursor: pointer;
+    }
+    .folder-creation {
+      display: flex;
+      gap: 5px;
     }
   }
 }
