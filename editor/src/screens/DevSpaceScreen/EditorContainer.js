@@ -82,8 +82,10 @@ export const EditorContainer = ({ fileId, folderId, runCode }) => {
 
   const importCode = (event) => {
     const file = event.target.files[0];
-    const fileType = file.type.includes("text");
-    if (fileType) {
+    const allowedExtensions = ["js", "cpp", "cs", "c", "py", "java"];
+    const fileExtension = file.name.split(".").pop().toLowerCase();
+
+    if (allowedExtensions.includes(fileExtension)) {
       const fileReader = new FileReader();
       fileReader.readAsText(file);
       fileReader.onload = function (value) {
@@ -92,9 +94,25 @@ export const EditorContainer = ({ fileId, folderId, runCode }) => {
         codeRef.current = importedCode;
       };
     } else {
-      showTryAgainToast(); // Show toast message if file is not of type text
+      showTryAgainToast(); // Show toast message if file is not of a valid type
     }
   };
+
+  // const importCode = (event) => {
+  //   const file = event.target.files[0];
+  //   const fileType = file.type.includes("text");
+  //   if (fileType) {
+  //     const fileReader = new FileReader();
+  //     fileReader.readAsText(file);
+  //     fileReader.onload = function (value) {
+  //       const importedCode = value.target.result;
+  //       setCode(importedCode);
+  //       codeRef.current = importedCode;
+  //     };
+  //   } else {
+  //     showTryAgainToast(); // Show toast message if file is not of type text
+  //   }
+  // };
 
   const showEmptyCodeToast = () => {
     toast.error("There is nothing to export", {
