@@ -123,7 +123,7 @@ export const DevSpaceScreen = () => {
   return (
     <div className="devspace-container">
       <div className="header-container">
-        <img src="/logo.jpg" alt="Logo" onClick={naviageToHomeScreen} />
+        <img src="/DEV_SPARK.png" alt="Logo" onClick={naviageToHomeScreen} />
       </div>
       <div className="bottom-container">
         <div className="editor-container">

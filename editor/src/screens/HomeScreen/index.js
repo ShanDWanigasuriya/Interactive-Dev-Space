@@ -14,8 +14,8 @@ export const HomeScreen = () => {
     <div className="home-container">
       <div className="left-container">
         <div className="items-container">
-          <img src="logo.jpg" />
-          <h1>DEV_SPARK</h1>
+          <img src="DEVSPARK.png" />
+          {/* <h1>DEV_SPARK</h1> */}
           <h2>YOUR INTERACTIVE DEV_SPACE</h2>
           <h2>CODE --&gt; COMPILE --&gt; RUN</h2>
           <button onClick={openCreateDevSpaceModal}>
